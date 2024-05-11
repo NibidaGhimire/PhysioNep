@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+    background: url("/physio.jpg");
+	background-repeat: repeat;
+	background-size: cover;
+	background-position: center;
+    height: 100%;
+}
+
+
+.red-gradient {
+	background: #f75151;
+	background: linear-gradient(-90deg, #f75151 0%, rgba(80, 51, 51, 0) 100%);
+	background: -webkit-linear-gradient(
+	  -90deg,
+	  #f75151 0%,
+	  rgba(60, 51, 80, 0) 100%
+	);
+  }
+
+  .red-blue-gradient {
+	background: "#00cea8";
+	background: linear-gradient(90.13deg, #00cea8 1.9%, #f75151 97.5%);
+	background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #f75151 97.5%);
+  }
