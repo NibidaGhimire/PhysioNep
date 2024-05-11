@@ -29,28 +29,32 @@ This project aims to provide a solution for people to do physiotherapy at home u
 
 On the project folder
 
-> npm install
+> ``` npm install ```
 
-> pip install mediapipe opencv-python numpy
+> ```pip install mediapipe opencv-python numpy```
 
 Input PORT, MONGO_DB_URI, JWT_SECRET, NODE_ENV in ".env" file:
 > PORT = 5000 
 
 > MONGO_DB_URI =  your mongodb uri,
 
-> JWT_SECRET = 
+> JWT_SECRET = your jwt key
 
 > NODE_ENV = development
 
 Run server:
-> npm run server
+> ```npm run server```
 
+### Backend Server will run at: [http//localhost:5000]((http://localhost:5000))
 
 Change the directory to projectFolder/Frontend:
-> cd frontend
+> ```cd frontend```
 
 Install npm packages:
-> npm install
+> ```npm install```
 
 Run the frontend:
-> npm run dev
+> ```npm run dev```
+
+
+### Frontend will run at: [http://localhost:3000/](http://localhost:3000/)
