@@ -2,7 +2,7 @@
 
 ### Contents:
 - [Introduction](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#introduction)
-- [Why PhysioNep?]((https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#why-physionep))
+- [Why PhysioNep?](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#why-physionep)
 - [How to run locally?](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#how-to-run-locally)
 
 ### Introduction
