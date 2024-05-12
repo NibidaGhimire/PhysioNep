@@ -10,7 +10,7 @@ import { logo } from '../assets'
 const Exercises = () => {
   const [active, setActive] = useState({ exercises: true, savedExercises: false })
   return (
-    <div className="w-full h-fit rounded-xl bg-gray-100 p-4 opacity-100 shadow-lg shadow-gray-200 flex flex-col gap-4">
+    <div className="w-full h-fit rounded-xl bg-red-50 p-4 opacity-100 shadow-lg shadow-gray-200 flex flex-col gap-4">
       <div className="flex flex-row justify-between">
         <div className='flex flex-row'>
           <img src={logo} alt="logo" className="w-12 h-12" />
@@ -28,19 +28,16 @@ const Exercises = () => {
           onClick={() => setActive({ exercises: false, savedExercises: true })}
         >Saved Exercises</p>
       </div>
-
       {
         active.exercises && (
           <Exercise />
         )
       }
-
       {
         active.savedExercises && (
           <SavedExercises />
         )
       }
-
     </div>
   )
 }

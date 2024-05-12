@@ -10,14 +10,14 @@ window_size = 10
 angle_buffer = []
 
 actual_angles = {
-    'left_elbow_angle': 176.59808596459845,
-    'right_elbow_angle': 179.69649230634394,
-    'left_shoulder_angle': 91.89307646277729,
-    'right_shoulder_angle': 256.30026350702263,
-    'left_hip_angle': 223.93430778734532,
-    'right_hip_angle': 101.9889509436257,
-    'left_knee_angle': 177.98482135733144,
-    'right_knee_angle': 246.89442127190478
+    'left_elbow': 175,
+    'right_elbow': 170,
+    'left_shoulder': 75,
+    'right_shoulder': 90,
+    'left_hip': 150,
+    'right_hip': 235,
+    'left_knee': 170,
+    'right_knee': 135
 }
 
 # Video capture
@@ -100,23 +100,23 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
 
         # Warrior pose
         def compute_joint_angles():
-            left_elbow_angle = calculate_angle(lw, le, ls)
-            right_elbow_angle = calculate_angle(rs, re, rw)
-            left_shoulder_angle = calculate_angle(le, ls, lh)
-            right_shoulder_angle = calculate_angle(rh, rs, re)
-            left_hip_angle = calculate_angle(lk, lh, ls)
-            right_hip_angle = calculate_angle(rs, rh, rk)
-            left_knee_angle = calculate_angle(la, lk, lh)
-            right_knee_angle = calculate_angle(rh, rk, ra)
+            left_elbow = calculate_angle(lw, le, ls)
+            right_elbow = calculate_angle(rs, re, rw)
+            left_shoulder = calculate_angle(le, ls, lh)
+            right_shoulder = calculate_angle(rh, rs, re)
+            left_hip = calculate_angle(lk, lh, ls)
+            right_hip = calculate_angle(rs, rh, rk)
+            left_knee = calculate_angle(la, lk, lh)
+            right_knee = calculate_angle(rh, rk, ra)
             
-            computed_angles = {'left_elbow_angle' : left_elbow_angle, 
-                            'right_elbow_angle' :right_elbow_angle, 
-                            'left_shoulder_angle' :left_shoulder_angle, 
-                            'right_shoulder_angle' :right_shoulder_angle, 
-                            'left_hip_angle' :left_hip_angle, 
-                            'right_hip_angle' :right_hip_angle,
-                            'left_knee_angle' :left_knee_angle, 
-                            'right_knee_angle' :right_knee_angle}
+            computed_angles = {'left_elbow' : left_elbow, 
+                            'right_elbow' :right_elbow, 
+                            'left_shoulder' :left_shoulder, 
+                            'right_shoulder' :right_shoulder, 
+                            'left_hip' :left_hip, 
+                            'right_hip' :right_hip,
+                            'left_knee' :left_knee, 
+                            'right_knee' :right_knee}
             
             # Displaying angles and errors
             for joint, angle in computed_angles.items():
@@ -124,15 +124,15 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 error = abs(actual_angle - angle)
                 
                 # Display corrective actions
-                if error > 40:  # Threshold for corrective actions
+                if error > 15:  # Threshold for corrective actions
                     correction_angle = actual_angle if actual_angle > angle else actual_angle - 180
                     # Draw red lines for joints with errors
-                    if 'elbow' in joint or 'shoulder' in joint:
+                    if 'elbow' in joint:
                         cv2.line(image, (int(ls[0]*frame.shape[1]), int(ls[1]*frame.shape[0])), 
                                  (int(le[0]*frame.shape[1]), int(le[1]*frame.shape[0])), (0, 0, 255), 3)
                         cv2.line(image, (int(rs[0]*frame.shape[1]), int(rs[1]*frame.shape[0])), 
                                  (int(re[0]*frame.shape[1]), int(re[1]*frame.shape[0])), (0, 0, 255), 3)
-                    elif 'hip' in joint or 'knee' in joint:
+                    elif 'hip' in joint:
                         cv2.line(image, (int(lh[0]*frame.shape[1]), int(lh[1]*frame.shape[0])), 
                                  (int(lk[0]*frame.shape[1]), int(lk[1]*frame.shape[0])), (0, 0, 255), 3)
                         cv2.line(image, (int(rh[0]*frame.shape[1]), int(rh[1]*frame.shape[0])), 
@@ -140,8 +140,8 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                     
                     cv2.putText(image, f"Move {joint} to {correction_angle:.2f} degrees", 
                                 (10, 30 + list(computed_angles.keys()).index(joint) * 20),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-                
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 2, cv2.LINE_AA)
+                                              
             # Display body angles on body parts
             for idx, (joint, angle) in enumerate(computed_angles.items()):
                 if 'left' in joint:
@@ -168,11 +168,10 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                         pos = (int(rk[0] * frame.shape[1]), int(rk[1] * frame.shape[0]))
     
                 # Display angle without body part names
-                cv2.putText(image, f"{angle:.2f}°", 
+                cv2.putText(image, f"{angle:.2f}Â°", 
                             pos,
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255), 2, cv2.LINE_AA)
 
-    
             return computed_angles
         
         computed_angles = compute_joint_angles()

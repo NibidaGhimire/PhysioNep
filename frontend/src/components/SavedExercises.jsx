@@ -4,7 +4,7 @@ import useExercises from '../zustand/useExercises';
 const SavedExercises = () => {
     const {savedexercises} = useExercises();
   return (
-    <div className="flex flex-row flex-wrap gap-4 h-screen">
+    <div className="flex flex-row flex-wrap gap-4 h-screen mx-16">
           {
             savedexercises.map((exer) => (
               <Link key={exer.id} to={`/exercise/${exer.id}`}>

@@ -13,7 +13,7 @@ const Consult = () => {
 
     const DoctorInfo = () => {
         return (
-            <div className="flex flex-col ">
+            <div className="flex flex-col h-full">
                 <div className='flex flex-row justify-between items-center m-8 border-2 border-black'>
                     <div className='flex flex-col '>
                         <div className='mx-8 flex flex-col '>
@@ -76,7 +76,7 @@ const Consult = () => {
 
                 <div className='bg-white flex-[70%]'>
                     {!selectedDoctor && (
-                        <div className='flex flex-col h-screen border-2 border-slate-300 items-center justify-center'>
+                        <div className='flex flex-col h-full border-2 border-slate-300 items-center justify-center'>
                             <div>
                                 <FaRegMessage className='w-24 h-24' />
                             </div>

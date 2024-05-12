@@ -6,6 +6,7 @@ import {
     straightlegraise,
     fingerstretch,
     catcow,
+    bicepcurls,
     samriddhi,
     aashma,
     kushal,
@@ -28,9 +29,19 @@ export const exercises = [
             "Repeat on the other side."
         ]
     },
-
     {
         id: 2,
+        exercise: "Bicep Curls",
+        pic: bicepcurls,
+        steps: [
+            "Stand with your feet shoulder-width apart.",
+            "Hold a dumbbell in each hand with your arms at your sides.",
+            "Bend your elbows and curl the weights toward your shoulders.",
+            "Slowly lower the weights back to the starting position.",
+        ]
+    },
+    {
+        id: 3,
         exercise: "Wrist Flexor Stretch",
         pic: wristflexor,
         steps: [
@@ -41,7 +52,7 @@ export const exercises = [
         ]
     },
     {
-        id: 3,
+        id: 4,
         exercise: "Straight Leg Raise",
         pic: straightlegraise,
         steps: [
@@ -56,7 +67,7 @@ export const exercises = [
 
     },
     {
-        id: 4,
+        id: 5,
         exercise: "Shoulder Circles",
         pic: shouldercircle,
         steps: [
@@ -67,7 +78,7 @@ export const exercises = [
         ]
     },
     {
-        id: 5,
+        id: 6,
         exercise: "Wrists Circles",
         pic: wristcircle,
         steps: [
@@ -78,7 +89,7 @@ export const exercises = [
         ]
     },
     {
-        id: 6,
+        id: 7,
         exercise: "Cat Cow Stretch",
         pic: catcow,
         steps: [
@@ -89,7 +100,7 @@ export const exercises = [
         ]
     },
     {
-        id: 7,
+        id: 8,
         exercise: "Finger Stretch",
         pic: fingerstretch,
         steps: [
@@ -114,7 +125,7 @@ export const doctors = [
         id: 1,
         profile: samriddhi,
         name: "Dr. Samriddhi Shrestha",
-        hospital : "Kathmandu Physiotherapy Clinic",
+        hospital: "Kathmandu Physiotherapy Clinic",
         info: "Dr. Samriddhi Shrestha is a physiotherapist with over 10 years of experience. She specializes in treating musculoskeletal conditions, sports injuries, and post-surgical rehabilitation. She is passionate about helping her patients achieve their health and fitness goals through personalized treatment plans and evidence-based practice.",
         specializations: ["Musculoskeletal conditions", "Sports injuries", "Post-surgical rehabilitation"]
     },
@@ -122,7 +133,7 @@ export const doctors = [
         id: 2,
         profile: kushal,
         name: "Dr. Kushal Kathiwada",
-        hospital : "Goodlife Physiotherapy",
+        hospital: "Goodlife Physiotherapy",
         info: "Dr. Kushal Kathiwada is a physiotherapist with over 5 years of experience. He specializes in treating neurological conditions, pediatric disorders, and geriatric care. He is dedicated to providing compassionate care to his patients and helping them improve their quality of life.",
         specializations: ["Neurological conditions", "Pediatric disorders", "Geriatric care"]
     },
@@ -130,7 +141,7 @@ export const doctors = [
         id: 3,
         profile: aashma,
         name: "Dr. Aashma Bhattrai",
-        hospital : "MV Physiotherapy Clinic",
+        hospital: "MV Physiotherapy Clinic",
         info: "Dr. Aashma Bhattrai is a physiotherapist with over 7 years of experience. She specializes in treating orthopedic",
         specializations: ["Orthopedic conditions", "Cardiopulmonary rehabilitation"]
     },
@@ -138,7 +149,7 @@ export const doctors = [
         id: 4,
         profile: sushil,
         name: "Dr. Sushil Kharel",
-        hospital : "Sarthak Health Care",
+        hospital: "Sarthak Health Care",
         info: "Dr. Sushil Kharel is a physiotherapist with over 8 years of experience. He specializes in treating musculoskeletal conditions, sports injuries, and post-surgical rehabilitation. He is committed to providing high-quality care to his patients and helping them achieve their health and wellness goals.",
         specializations: ["Musculoskeletal conditions", "Sports injuries", "Post-surgical rehabilitation"]
     }

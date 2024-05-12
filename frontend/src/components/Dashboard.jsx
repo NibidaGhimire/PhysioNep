@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     return (
 
-        <div className="flex flex-col gap-5 bg-white bg-opacity-80 px-4 py-4 rounded-xl h-screen shadow-gray-200 shadow-xl">
+        <div className="flex flex-col gap-5 bg-white bg-opacity-80 px-4 py-4 rounded-xl h-full shadow-gray-200 shadow-xl">
             <h1 className="text-[20px] font-bold text-red-800  text-center">PhysioNep</h1>
 
             <div className="flex flex-col gap-2 items-center">
@@ -40,6 +40,15 @@ const Dashboard = () => {
             <button className="text-[16px] w-full px-4 py-2 rounded-xl bg-red-700 text-white"
                 onClick={logout}
             >Logout</button>
+
+            <div>
+                <p className="text-[12px] text-center text-gray-500">© 2024 PhysioNep. All rights reserved.</p>
+            </div>
+
+            <div className="mt-4 w-auto h-full bg-white flex  justify-center p-8 text-gray-600">
+        
+                <p>Advertisement</p>
+            </div>
         </div>
     )
 }

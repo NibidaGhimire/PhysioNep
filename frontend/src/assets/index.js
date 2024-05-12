@@ -5,6 +5,7 @@ import shouldercircle from './exercises//shouldercircles.jpg';
 import straightlegraise from './exercises/straightlegraise.jpg';
 import fingerstretch from './exercises/fingerstretch.png';
 import catcow from './exercises/catcow.jpg';
+import bicepcurls from './exercises/bicepcurls.png';
 
 import samriddhi from './doctors/samriddhi.jpg';
 import kushal from './doctors/kushal.jpg';
@@ -14,4 +15,4 @@ import sushil from './doctors/sushil.jpg';
 
 import logo from './logo.png';
 
-export {wristflexor, warrior,wristcircle,shouldercircle,straightlegraise,fingerstretch,catcow,samriddhi,kushal, aashma,sushil,logo};
+export {wristflexor, warrior,wristcircle,shouldercircle,straightlegraise,fingerstretch,catcow,bicepcurls,samriddhi,kushal, aashma,sushil,logo};
