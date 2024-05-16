@@ -45,7 +45,7 @@ Input PORT, MONGO_DB_URI, JWT_SECRET, NODE_ENV in ".env" file:
 Run server:
 > ```npm run server```
 
-### Backend Server will run at: [http//localhost:5000]((http://localhost:5000))
+### Backend Server will run at: [http://localhost:5000](http://localhost:5000)
 
 Change the directory to projectFolder/Frontend:
 > ```cd frontend```
