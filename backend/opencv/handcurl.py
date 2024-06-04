@@ -6,6 +6,13 @@ import posemodule as pm
 # Initialize video capture
 cap = cv2.VideoCapture(0)
 
+
+# Initialize pose detector
+detector = pm.poseDetector()
+count = 0
+dir = 0
+pTime = 0
+
 while True:
     # Read frame from video
     success, img = cap.read()
