@@ -122,25 +122,6 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             for joint, angle in computed_angles.items():
                 actual_angle = actual_angles[joint]
                 error = abs(actual_angle - angle)
-                
-                # Display corrective actions
-                if error > 15:  # Threshold for corrective actions
-                    correction_angle = actual_angle if actual_angle > angle else actual_angle - 180
-                    # Draw red lines for joints with errors
-                    if 'elbow' in joint:
-                        cv2.line(image, (int(ls[0]*frame.shape[1]), int(ls[1]*frame.shape[0])), 
-                                 (int(le[0]*frame.shape[1]), int(le[1]*frame.shape[0])), (0, 0, 255), 3)
-                        cv2.line(image, (int(rs[0]*frame.shape[1]), int(rs[1]*frame.shape[0])), 
-                                 (int(re[0]*frame.shape[1]), int(re[1]*frame.shape[0])), (0, 0, 255), 3)
-                    elif 'hip' in joint:
-                        cv2.line(image, (int(lh[0]*frame.shape[1]), int(lh[1]*frame.shape[0])), 
-                                 (int(lk[0]*frame.shape[1]), int(lk[1]*frame.shape[0])), (0, 0, 255), 3)
-                        cv2.line(image, (int(rh[0]*frame.shape[1]), int(rh[1]*frame.shape[0])), 
-                                 (int(rk[0]*frame.shape[1]), int(rk[1]*frame.shape[0])), (0, 0, 255), 3)
-                    
-                    cv2.putText(image, f"Move {joint} to {correction_angle:.2f} degrees", 
-                                (10, 30 + list(computed_angles.keys()).index(joint) * 20),
-                                cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 0, 255), 2, cv2.LINE_AA)
                                               
             # Display body angles on body parts
             for idx, (joint, angle) in enumerate(computed_angles.items()):
