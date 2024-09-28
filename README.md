@@ -6,8 +6,7 @@
 - [Introduction](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#introduction)
 - [Why PhysioNep?](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#why-physionep)
 - [How to run locally?](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#how-to-run-locally)
-
-
+- [Tech Stacks Used](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#tech-stacks-used)
 
 ### Introduction
 This project aims to provide a solution for people to do physiotherapy at home using pose angle detection. By analyzing the user's body posture, the system can provide real-time feedback and guidance to ensure correct exercise execution. This can help individuals improve their physical well-being and recover from injuries or conditions that require physiotherapy.
@@ -26,6 +25,15 @@ This project aims to provide a solution for people to do physiotherapy at home u
 5. Cost-effective: By reducing the need for in-person physiotherapy sessions, PhysioNep can potentially lower the overall cost of treatment for individuals.
 
 6. Convenience: PhysioNep allows individuals to perform physiotherapy exercises in the comfort of their own homes, eliminating the need for frequent visits to a physiotherapy clinic.
+
+
+
+### Tech Stacks Used
+- MERN Stack: For developing the webapp(ReactJs for frontend, NodeJs with Express for backend and MongoDB for Database.),
+- OpenCV: For Object Detection,
+- MediaPipe: For Landmarks identification,
+- GoogleTTS: For audio feedbacks.
+
 
 
 
