@@ -1,5 +1,14 @@
 # PhysioNep
 
+
+
+### Contents:
+- [Introduction](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#introduction)
+- [Why PhysioNep?](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#why-physionep)
+- [How to run locally?](https://github.com/NibidaGhimire/PhysioNep?tab=readme-ov-file#how-to-run-locally)
+
+
+
 ### Introduction
 This project aims to provide a solution for people to do physiotherapy at home using pose angle detection. By analyzing the user's body posture, the system can provide real-time feedback and guidance to ensure correct exercise execution. This can help individuals improve their physical well-being and recover from injuries or conditions that require physiotherapy.
 
