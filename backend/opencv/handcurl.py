@@ -28,7 +28,7 @@ while True:
     if len(lmList) != 0:
         angle = detector.findAngle(img, 12, 14, 16)
 
-        per = np.interp(angle, (210, 310), (0, 100))
+        per = np.interp(angle, (220, 310), (0, 100))
         bar = np.interp(angle, (220, 310), (625, 100))
 
         color = (255, 0, 255)
@@ -42,10 +42,10 @@ while True:
 
         cv2.rectangle(img, (800, 100), (825, 625), color, 3)
         cv2.rectangle(img, (800, int(bar)), (825, 625), color, cv2.FILLED)   
-        cv2.putText(img, f'{int(per)} %', (775, 75), cv2.FONT_HERSHEY_PLAIN, 2, color, 4)
+        cv2.putText(img, f'{int(per)} %', (776, 76), cv2.FONT_HERSHEY_PLAIN, 2, color, 4)
 
         cv2.rectangle(img, (0, 450), (250, 650), (0, 255, 0), cv2.FILLED)
-        cv2.putText(img, str(int(count)), (45, 625), cv2.FONT_HERSHEY_PLAIN, 15, (255, 0, 0), 25)
+        cv2.putText(img, str(int(count)), (46, 626), cv2.FONT_HERSHEY_PLAIN, 15, (255, 0, 0), 25)
 
     cTime = time.time()
     fps = 1 / (cTime - pTime)
