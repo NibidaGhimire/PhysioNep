@@ -19,7 +19,7 @@ while True:
     if not success:
         break
 
-    img = cv2.resize(img, (880, 650))
+    img = cv2.resize(img, (900, 650))
     cv2.imshow("Image", img)
     cv2.moveWindow("Image", 512, 100)
     cv2.setWindowProperty('Image', cv2.WND_PROP_TOPMOST, 1)

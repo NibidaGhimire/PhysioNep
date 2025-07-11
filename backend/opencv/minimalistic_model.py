@@ -20,7 +20,7 @@ actual_angles = {
     'right_knee': 135
 }
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 cv2.namedWindow('MyWindow', cv2.WINDOW_NORMAL)
 cv2.moveWindow('MyWindow', 512, 100)  
 cv2.resizeWindow('MyWindow', 900, 650)  
@@ -51,7 +51,11 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         right_hip = landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value]
         left_knee = landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value]
         right_knee = landmarks[mp_pose.PoseLandmark.RIGHT_KNEE.value]
-        
+        left_wrist = landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value]
+        right_wrist = landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value]
+        right_ankle = landmarks[mp_pose.PoseLandmark.RIGHT_ANKLE.value]
+        left_ankle = landmarks[mp_pose.PoseLandmark.LEFT_ANKLE.value]
+
         def calculate_angle(a, b, c):
             a = np.array(a)  # First landmark
             b = np.array(b)  # Second landmark
@@ -69,7 +73,11 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
         rh = [right_hip.x, right_hip.y]
         lk = [left_knee.x, left_knee.y]
         rk = [right_knee.x, right_knee.y]
-        
+        lw = [left_wrist.x, left_wrist.y]
+        rw = [right_wrist.x, right_wrist.y]
+        la = [left_ankle.x, left_ankle.y]
+        ra = [right_ankle.x, right_ankle.y]
+
         def moving_average_filter(angle):
             angle_buffer.append(angle)
             if len(angle_buffer) > window_size:
