@@ -1,120 +1,147 @@
-import { Link } from "react-router-dom"
-import GenderCheckbox from "./GenderCheckbox"
-import { useState } from "react"
-import useSignup from "../../hooks/useSignup"
-import { logo } from "../../assets"
+import { Link } from "react-router-dom";
+import GenderCheckbox from "./GenderCheckbox";
+import { useState } from "react";
+import useSignup from "../../hooks/useSignup";
+import { logo } from "../../assets";
 
 const SignUp = () => {
-
   const [inputs, setInputs] = useState({
-    fullName: '',
+    fullName: "",
     username: "",
     password: "",
     confirmPassword: "",
-    gender: ""
-  })
+    gender: "",
+  });
 
   const { loading, signup } = useSignup();
 
   const handleCheckboxChange = (gender) => {
-    setInputs({ ...inputs, gender })
-  }
+    setInputs({ ...inputs, gender });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(inputs);
-  }
+  };
 
   return (
-    <div className="flex flex-row items-center justify-center">
-      <div className=" flex-[40%] flex flex-col bg-white bg-opacity-70 justify-center items-center h-screen w-fit p-20 shadow-lg shadow-gray-200 rounded-box">
-        <img src={logo} alt="PhysioNep" className="w-96 h-96 object-cover " />
-        <br />
-        <p className="text-[24px] text-black font-bold"> Welcome to <span className="text-red-500">PhysioNep!</span></p>
+    <div className="flex flex-col md:flex-row items-center justify-center bg-[var(--color-bg)] min-h-screen px-4 text-white relative overflow-hidden">
+      {/* Background blobs */}
+      <div className="absolute -top-24 -left-24 w-96 h-96 bg-[var(--color-primary)] opacity-20 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-[var(--color-secondary)] opacity-20 rounded-full filter blur-3xl"></div>
+
+      {/* Logo + Welcome Section */}
+      <div className="flex-[40%] flex flex-col justify-center items-center p-10">
+        <img
+          src={logo}
+          alt="PhysioNep"
+          className="w-48 h-48 object-contain mb-4"
+        />
+        <p className="text-2xl font-bold text-center text-white">
+          Welcome to{" "}
+          <span style={{ color: "var(--color-primary)" }}>PhysioNep!</span>
+        </p>
       </div>
 
-      <div className='flex-[60%] p-4 h-screen flex items-center justify-center '>
-      <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-        <div className="w-full p-6 rounded-lg shadow-md bg-white bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-60">
-          <h1 className="text-3xl font-semibold text-center text-gray-800">
+      {/* SignUp Form */}
+      <div className="flex-[60%] p-6 flex items-center justify-center w-full">
+        <div className="w-full max-w-md bg-[var(--color-lighter)] bg-opacity-80 backdrop-blur-lg rounded-2xl shadow-xl border border-[var(--color-outline)] p-8">
+          <h1 className="text-3xl font-bold text-center mb-6 text-white">
             Sign Up
           </h1>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="label p-2">
-                <span className="text-base label-text text-gray-800">Full Name</span>
+              <label className="block mb-1 text-sm font-medium text-white">
+                Full Name
               </label>
-              <input type="text" placeholder="Jane Doe" className="w-full input input-bordered h-10 bg-white text-gray-800"
+              <input
+                type="text"
+                placeholder="Jane Doe"
+                className="w-full px-4 py-3 rounded-md bg-transparent border border-[var(--color-outline)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] shadow-sm transition"
                 value={inputs.fullName}
-                onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
+                onChange={(e) =>
+                  setInputs({ ...inputs, fullName: e.target.value })
+                }
+                required
               />
             </div>
 
             <div>
-              <label className="label p-2">
-                <span className="text-base label-text text-gray-800">Username</span>
+              <label className="block mb-1 text-sm font-medium text-white">
+                Username
               </label>
-              <input type="text" placeholder="janedoe" className="w-full input input-bordered h-10 bg-white text-gray-800"
+              <input
+                type="text"
+                placeholder="janedoe"
+                className="w-full px-4 py-3 rounded-md bg-transparent border border-[var(--color-outline)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] shadow-sm transition"
                 value={inputs.username}
-                onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
+                onChange={(e) =>
+                  setInputs({ ...inputs, username: e.target.value })
+                }
+                required
               />
             </div>
 
             <div>
-              <label className="label">
-                <span className="text-base label-text text-gray-800">Password</span>
+              <label className="block mb-1 text-sm font-medium text-white">
+                Password
               </label>
               <input
                 type="password"
                 placeholder="Enter Password"
-                className="w-full input input-bordered h-10 bg-white"
+                className="w-full px-4 py-3 rounded-md bg-transparent border border-[var(--color-outline)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] shadow-sm transition"
                 value={inputs.password}
-                onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+                onChange={(e) =>
+                  setInputs({ ...inputs, password: e.target.value })
+                }
+                required
               />
             </div>
 
             <div>
-              <label className="label">
-                <span className="text-base label-text text-gray-800">Confirm Password</span>
+              <label className="block mb-1 text-sm font-medium text-white">
+                Confirm Password
               </label>
               <input
                 type="password"
                 placeholder="Confirm Password"
-                className="w-full input input-bordered h-10 bg-white"
+                className="w-full px-4 py-3 rounded-md bg-transparent border border-[var(--color-outline)] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] shadow-sm transition"
                 value={inputs.confirmPassword}
-                onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
+                onChange={(e) =>
+                  setInputs({ ...inputs, confirmPassword: e.target.value })
+                }
+                required
               />
             </div>
 
-            <GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={inputs.gender} />
+            <GenderCheckbox
+              onCheckboxChange={handleCheckboxChange}
+              selectedGender={inputs.gender}
+            />
 
-            <Link to="/login"
-              className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block text-gray-800"
-
+            <Link
+              to="/login"
+              className="block text-sm text-[var(--color-primary)] hover:underline text-center"
             >
               Already have an account?
             </Link>
 
-            <div>
-              <button
-                disabled={loading}
-                className="btn btn-block btn-sm mt-2 border text-white border-slate-700 hover:bg-blue-600"
-              >
-                {loading ? <span className="loading loading-spinner"></span> : "Sign Up"}
-              </button>
-            </div>
-
+            <button
+              disabled={loading}
+              className="w-full py-3 rounded-md bg-[var(--color-primary)] text-black font-bold hover:bg-pink-400 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] shadow-lg"
+            >
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
+            </button>
           </form>
         </div>
       </div>
     </div>
-    </div>
-    
+  );
+};
 
-  )
-}
-
-export default SignUp
-
-
+export default SignUp;

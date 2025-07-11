@@ -2,12 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
-    background: url("/physio.jpg");
-	background-repeat: repeat;
-	background-size: cover;
-	background-position: center;
-    height: 100%;
+/* @theme {
+	--color-primary: #ff80ab;
+	--color-secondary: #ffb3c6;
+	--color-lighter: #2d2d2d;
+	--color-darker: #121212;
+	--color-bg: #1a1a1a;
+} */
+
+:root {
+	--color-primary: #ff80ab;
+	/* Light pink (main accent, contrasting) */
+	--color-secondary: #ffc1e3;
+	/* Softer pink for hover and subtle highlights */
+	--color-lighter: #2e2e2e;
+	/* Card / surface background */
+	--color-darker: #121212;
+	/* Main background */
+	--color-bg: #1a1a1a;
+	/* Overall page background */
+	--color-outline: rgba(255, 128, 171, 0.25);	/* Light outlines for contrast */
+}
+
+:root {
+	background-color: #040D12;
+	position: relative;
+	min-height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 
