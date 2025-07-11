@@ -1,122 +1,118 @@
-import { useParams } from 'react-router-dom'
-import { exercises } from '../constants'
-import useExercises from '../zustand/useExercises';
-// import Webcam from "react-webcam";
-import useCam from '../hooks/useCam';
-
+import { useParams } from "react-router-dom";
+import { exercises } from "../constants";
+import useExercises from "../zustand/useExercises";
+import useCam from "../hooks/useCam";
+import useCurl from "../hooks/useCurl";
+import useBackcurl from "../hooks/useBackcurl";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import useCurl from '../hooks/useCurl';
-import useBackcurl from '../hooks/useBackcurl';
-
 
 const ExerciseInfo = () => {
-    const { savedexercises, setSavedexercises } = useExercises();
-    const { id } = useParams()
+  const { savedexercises, setSavedexercises } = useExercises();
+  const { id } = useParams();
 
-    const { handlerun, handlestop, loading, started } = useCam();
-    const { handlebirun, handlebistop, loadingg, startedd } = useCurl();
-    const {handlebcurlrun, handlebcurlstop, loadinggg, starteddd} = useBackcurl();
+  const { handlerun, handlestop, loading, started } = useCam();
+  const { handlebirun, handlebistop, loadingg, startedd } = useCurl();
+  const { handlebcurlrun, handlebcurlstop, loadinggg, starteddd } =
+    useBackcurl();
 
-    const toggleSaveExercise = (exer) => {
-        const isSaved = savedexercises.some((savedExer) => savedExer.id === exer.id);
-        if (isSaved) {
-            const updatedExercises = savedexercises.filter((savedExer) => savedExer.id !== exer.id);
-            setSavedexercises(updatedExercises);
-        } else {
-            setSavedexercises([...savedexercises, exer]);
-        }
-    };
+  const toggleSaveExercise = (exer) => {
+    const isSaved = savedexercises.some(
+      (savedExer) => savedExer.id === exer.id
+    );
+    if (isSaved) {
+      const updatedExercises = savedexercises.filter(
+        (savedExer) => savedExer.id !== exer.id
+      );
+      setSavedexercises(updatedExercises);
+    } else {
+      setSavedexercises([...savedexercises, exer]);
+    }
+  };
 
-    const handleRunPythonScript = async (exer) => {
-        console.log(exer.id)
-        if (exer.id == 2) {
-            handlebirun();
-        }
-        else if (exer.id == 3) {
-            handlebcurlrun();
-        }
-            
-        else{
-            handlerun();
+  const handleRunPythonScript = (exer) => {
+    if (exer.id == 2) handlebirun();
+    else if (exer.id == 3) handlebcurlrun();
+    else handlerun();
+  };
 
-        }
-    };
+  const handleStopPythonScript = (exer) => {
+    if (exer.id == 2) handlebistop();
+    else if (exer.id == 3) handlebcurlstop();
+    else handlestop();
+  };
 
-    const handleStopPythonScript = async (exer) => {
-        if (exer.id == 2) {
-            handlebistop();
-        }
-        else if (exer.id == 3) {
-            handlebcurlstop();
-        }
+  return (
+    <div className="h-screen w-full bg-[#121212] rounded-xl p-6 shadow-lg shadow-black/40 overflow-auto">
+      {exercises.map(
+        (exer) =>
+          exer.id == id && (
+            <div key={exer.id} className="flex flex-col md:flex-row gap-6">
+  {/* Left panel */}
+  <div className="flex-[28%] bg-[#1e1e1e] rounded-xl p-6 flex flex-col gap-6 shadow-inner shadow-black/30">
+    <div>
+      <h1 className="text-[22px] font-semibold text-[#ff80ab]">{exer.exercise}</h1>
+      <img
+        src={exer.pic}
+        alt={exer.exercise}
+        className="w-full h-72 object-cover rounded-lg mt-3 shadow-md shadow-black/50"
+      />
+    </div>
 
-        else{
-            handlestop();
+    <button
+      className={`text-sm font-medium rounded-lg px-4 py-2 transition-all duration-200
+        ${
+          savedexercises.some((savedExer) => savedExer.id === exer.id)
+            ? "bg-[#ff80ab] text-black hover:bg-pink-400"
+            : "border border-pink-400 text-pink-400 hover:bg-[#ff80ab] hover:text-black"
+        }`}
+      onClick={() => toggleSaveExercise(exer)}
+    >
+      {savedexercises.some((savedExer) => savedExer.id === exer.id)
+        ? "Unsave Exercise"
+        : "Save Exercise"}
+    </button>
 
-        }
-    };
+    <div>
+      <h2 className="text-[18px] text-[#ff80ab] font-semibold">Steps</h2>
+      <ul className="list-disc list-inside space-y-1 mt-1">
+        {exer.steps.map((step, index) => (
+          <li key={index} className="text-gray-300 text-[15px]">{step}</li>
+        ))}
+      </ul>
+    </div>
 
-    return (
-        <div className='h-screen w-full bg-white bg-opacity-70 rounded-lg'>
-            {
-                exercises.map((exer) => (
+    {(started || startedd || starteddd) && (
+      <button
+        className="text-sm font-semibold rounded-lg px-4 py-2 bg-[#ff80ab] text-black hover:bg-pink-400 transition-all duration-200"
+        onClick={() => handleStopPythonScript(exer)}
+      >
+        End Exercise
+      </button>
+    )}
+  </div>
 
-                    exer.id == id && (
-                        <div key={exer.id} className="flex flex-row gap-4 items-center">
-                            <div className='flex-[30%] bg-white p-8 h-screen flex flex-col gap-4 shadow-lg shadow-red-400'>
-                                <div className='flex flex-col'>
-                                    <h1 className="text-[24px] text-red-500 font-bold ">{exer.exercise}</h1>
-                                    <img src={exer.pic} alt={exer.exercise} className="border border-black w-fit h-80 object-cover rounded-lg" />
-                                </div>
+  {/* Right panel */}
+  <div className="flex-[72%] flex items-center justify-center bg-[#1e1e1e] rounded-xl p-6 shadow-inner shadow-black/30 min-h-[300px]">
+    {(loading || loadingg || loadinggg) ? (
+      <div className="flex flex-col items-center gap-4">
+        <AiOutlineLoading3Quarters className="animate-spin text-[#ff80ab] w-14 h-14" />
+        <p className="text-gray-300 text-lg">Loading... Please wait!</p>
+      </div>
+    ) : (
+      <button
+        className="text-base font-semibold rounded-lg border-2 border-[#ff80ab] px-8 py-3 text-[#ff80ab] hover:bg-[#ff80ab] hover:text-black transition-all duration-200"
+        onClick={() => handleRunPythonScript(exer)}
+      >
+        {(started || startedd || starteddd) ? "Started" : "Start Exercise"}
+      </button>
+    )}
+  </div>
+</div>
 
-                                <div>
-                                    <button
-                                        className={`text-black text-[18px] rounded-lg border border-red-500 px-8 py-2 w-full hover:bg-red-500 hover:text-white
-                                                    ${savedexercises.some((savedExer) => savedExer.id === exer.id) ? 'bg-red-500 text-white' : ''}`}
-                                        onClick={() => toggleSaveExercise(exer)}
-                                    >
-                                        {savedexercises.some((savedExer) => savedExer.id === exer.id) ? 'Unsave Exercise' : 'Save Exercise'}
+          )
+      )}
+    </div>
+  );
+};
 
-                                    </button>
-                                </div>
-                                <div>
-                                    <h2 className="text-[18px] text-red-500 font-bold">Steps</h2>
-                                    <ul className="list-disc list-inside">
-                                        {
-                                            exer.steps.map((step, index) => (
-                                                <li key={index} className="text-black text-[16px]">{step}</li>
-                                            ))
-                                        }
-                                    </ul>
-                                </div>
-
-                                {(started || startedd|| starteddd) && (
-                                    <button className="w-auto text-white text-[18px] font-semibold rounded-lg border-2 border-red-500 px-8 py-2 bg-red-500 hover:bg-red-600" onClick={() => handleStopPythonScript(exer)}>End Exercise</button>
-                                )}
-                            </div>
-
-
-                            <div className='flex-[70%] flex items-center justify-center'>
-                                {
-                                    (loading || loadingg && !loadinggg) && (
-                                        <div className='flex flex-col gap-2 items-center justify-center'>
-                                            <AiOutlineLoading3Quarters className=' text-blue-500 w-16 h-16' />
-                                            <div className="text-black text-[24px] font-semibold rounded-lg  px-8 py-2 w-fit">Loading... Please wait!</div>
-
-                                        </div>
-                                    )
-                                }
-                                {
-                                    (!loading && !loadingg && !loadinggg) && (
-                                        <button className=" text-black text-[18px] font-semibold rounded-lg border-2 border-red-500 px-8 py-2 w-fit hover:bg-red-500 hover:text-white" onClick={() => handleRunPythonScript(exer)}>{(started || startedd|| starteddd) ? "Started" : "Start Exercise"}</button>
-                                    )}
-                            </div>
-                        </div>
-                    )
-                ))
-            }
-        </div>
-    )
-}
-
-export default ExerciseInfo
+export default ExerciseInfo;
