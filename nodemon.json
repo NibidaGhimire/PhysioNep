@@ -1,0 +1,4 @@
+{
+  "watch": ["backend"],
+  "ignore": ["backend/venv", "node_modules"]
+}

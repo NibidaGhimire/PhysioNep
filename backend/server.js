@@ -2,7 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser"
 import { spawn } from "child_process";
+import axios from "axios";
+import cors from "cors";
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 import authRoutes from "./routes/auth.routes.js"
 
@@ -11,6 +14,7 @@ import connectToMongoDb from "./db/connectToMongoDB.js";
 const PORT = process.env.PORT || 5000;
 
 const app = express();
+app.use(cors());
 dotenv.config();
 
 app.use(express.json());
@@ -121,6 +125,52 @@ app.get('/api/bcurl-end', (req, res) => {
 });
 
 
+app.post("/api/proxy-fetch", async (req, res) => {
+  try {
+    const loginRes = await axios.post(
+      "https://api.hcgateway.shuchir.dev/api/v2/login",
+      {
+        username: "nibida",
+        password: "nibida",
+      }
+    );
+
+    const token = loginRes.data.token;
+
+    const caloriesRes = await axios.post(
+      "https://api.hcgateway.shuchir.dev/api/v2/fetch/totalCaloriesBurned",
+      { queries: {} },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const stepsRes = await axios.post(
+      "https://api.hcgateway.shuchir.dev/api/v2/fetch/steps",
+      { queries: {} },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Full caloriesRes:", JSON.stringify(caloriesRes.data, null, 2));
+    console.log("Full stepsRes:", JSON.stringify(stepsRes.data, null, 2));
+
+    res.json({
+      calories: caloriesRes.data,
+      steps: stepsRes.data,
+    });
+  } catch (err) {
+    console.error("Backend Error:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.use("/api/auth", authRoutes);
 
