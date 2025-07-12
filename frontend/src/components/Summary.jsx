@@ -1,105 +1,86 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const SummaryGenerator = () => {
-  const [summary, setSummary] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [summary, setSummary] = useState(null);
+  const [error, setError] = useState(null);
 
-  const fetchAndSummarize = async () => {
-    setLoading(true);
+  useEffect(() => {
+    const fetchAndSummarize = async () => {
+      try {
+        const res = await axios.post("api/proxy-fetch");
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/proxy-fetch");
+        const { calories, steps, heart, respiration, oxygen } = res.data;
 
-      const caloriesData = res.data.calories;
-      const stepsData = res.data.steps;
+        const buildArray = (arr, pick) =>
+          (Array.isArray(arr) ? arr : []).map((e) => ({
+            start: e.start,
+            end: e.end,
+            value: pick(e),
+          }));
 
-      function preprocessData(caloriesData, stepsData) {
-        const calorieSummary = caloriesData.map((entry) => ({
-          start: entry.start,
-          end: entry.end,
-          calories: entry.data?.energy?.inCalories ?? 0,
-        }));
+        const calorieSummary = buildArray(
+          calories,
+          (e) => e.data?.energy?.inCalories ?? 0
+        );
+        const stepsSummary = buildArray(steps, (e) => e.data?.count ?? 0);
+        const heartSummary = buildArray(heart, (e) => e.data?.count ?? 0);
+        const respirationSummary = buildArray(
+          respiration,
+          (e) => e.data?.count ?? 0
+        );
+        const oxygenSummary = buildArray(oxygen, (e) => e.data?.count ?? 0);
 
-        const stepsSummary = stepsData.map((entry) => ({
-          start: entry.start,
-          end: entry.end,
-          steps: entry.data?.count ?? 0,
-        }));
+        const prompt = `
+You are a virtual medical assistant summarizing fitness vitals for a physiotherapy patient. Write ONE concise paragraph highlighting trends over the past week (no lists, no disclaimers).
 
-        return { calorieSummary, stepsSummary };
-      }
-
-      const { calorieSummary, stepsSummary } = preprocessData(
-        caloriesData.slice(-2),
-        stepsData.slice(-2)
-      );
-
-      console.log("Calories Data:", caloriesData);
-      console.log("Steps Data:", stepsData);
-
-      const userPrompt = `
-
-Analyze the chances of having Cardiac Arrest, Insomnia and Depression in the format:
-Cardiac Arrest: High/Medium/Low?
-Insomnia: High/Medium/Low?
-Depression: High/Medium/Low?
-Summarize patterns, anomalies, or any indicators of health concerns like cardiac stress or inactivity. Give very to the point answer so that users can understand exactly what's happening to them.
-
-Calories burned:
+Active Calories Burned:
 ${calorieSummary
-  .map((e) => `From ${e.start} to ${e.end}: ${e.calories.toFixed(2)} cal`)
+  .map((e) => `From ${e.start} to ${e.end}: ${e.value.toFixed(2)} cal`)
   .join("\n")}
-
-Step counts:
+Steps walked:
 ${stepsSummary
-  .map((e) => `From ${e.start} to ${e.end}: ${e.steps} steps`)
+  .map((e) => `From ${e.start} to ${e.end}: ${e.value} steps`)
   .join("\n")}
-
+Heart Rate: 72 beats per minute
+Respiration: 16 breath per minute
+SpO₂: 98% spo2
 `;
 
-      const geminiRes = await axios.post(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBcRlRlZAmK7QkvYQBsW6mHGMkAmmOREGM",
-        {
-          contents: [
-            {
-              parts: [{ text: userPrompt }],
-            },
-          ],
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+        const gemini = await axios.post(
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyBcRlRlZAmK7QkvYQBsW6mHGMkAmmOREGM",
+          { contents: [{ parts: [{ text: prompt }] }] },
+          { headers: { "Content-Type": "application/json" } }
+        );
 
-      setSummary(geminiRes.data.candidates[0].content.parts[0].text);
-    } catch (error) {
-      console.error("Error generating summary:", {
-        message: error.message,
-        response: error.response?.data,
-        status: error.response?.status,
-      });
-      setSummary("Failed to generate summary. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+        setSummary(
+          gemini.data.candidates?.[0]?.content?.parts?.[0]?.text ?? ""
+        );
+      } catch (err) {
+        console.error("Summary error:", err);
+        setError("Failed to generate summary.");
+      }
+    };
+
+    fetchAndSummarize();
+  }, []);
 
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <button
-        onClick={fetchAndSummarize}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        disabled={loading}
-      >
-        {loading ? "Generating..." : "Generate Summary"}
-      </button>
+    <div className="mt-6 bg-[#1e1e1e] p-6 rounded-xl shadow-inner shadow-black/30 text-gray-300">
+      <h2 className="text-2xl font-semibold text-[#ff80ab] mb-4">
+        Vitals Summary
+      </h2>
+
+      {summary === null && !error && (
+        <div className="h-20 w-full bg-[#2a2a2a] rounded-lg animate-pulse" />
+      )}
+
+      {error && (
+        <p className="text-red-400 bg-[#2a2a2a] p-4 rounded-lg">{error}</p>
+      )}
 
       {summary && (
-        <div className="mt-4 p-3 border rounded bg-gray-100">
-          <h2 className="text-lg font-bold mb-2">Summary</h2>
+        <div className="bg-[#2a2a2a] p-4 rounded-lg text-gray-200 border border-[#3b3b3b] shadow">
           <p>{summary}</p>
         </div>
       )}

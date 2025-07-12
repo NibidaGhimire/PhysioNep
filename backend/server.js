@@ -87,10 +87,6 @@ app.get('/api/curl-end', (req, res) => {
   }
 });
 
-
-
-
-
 const startBCurl = () => {
   const BcurlProcess = spawn('python', ['./backend/opencv/backcurl.py']);
   console.log('Python process started on biceps');
@@ -159,13 +155,53 @@ app.post("/api/proxy-fetch", async (req, res) => {
       }
     );
 
+    const heartRes = await axios.post(
+      "https://api.hcgateway.shuchir.dev/api/v2/fetch/heartRate",
+      { queries: {} },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const respiratoryRes = await axios.post(
+      "https://api.hcgateway.shuchir.dev/api/v2/fetch/respiratoryRate",
+      { queries: {} },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const oxygenRes = await axios.post(
+      "https://api.hcgateway.shuchir.dev/api/v2/fetch/oxygenSaturation",
+      { queries: {} },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
     console.log("Full caloriesRes:", JSON.stringify(caloriesRes.data, null, 2));
     console.log("Full stepsRes:", JSON.stringify(stepsRes.data, null, 2));
+    console.log("Full heartRes:", JSON.stringify(heartRes.data, null, 2));
+    console.log("Full respiratoryRes:", JSON.stringify(respiratoryRes.data, null, 2));
+    console.log("Full oxygenRes:", JSON.stringify(oxygenRes.data, null, 2));
 
     res.json({
       calories: caloriesRes.data,
       steps: stepsRes.data,
+      heart: heartRes.data,
+      respiration: respiratoryRes.data,
+      oxygen: oxygenRes.data
     });
+    
   } catch (err) {
     console.error("Backend Error:", err.message);
     res.status(500).json({ error: err.message });

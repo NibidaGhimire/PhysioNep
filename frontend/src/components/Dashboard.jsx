@@ -34,8 +34,8 @@ const Dashboard = () => {
         {[
           { path: "/", label: "Exercises" },
           { path: "/progress", label: "Progress" },
+          { path: "/checkvitals", label: "Check Vitals", pro: true },
           { path: "/consult", label: "Consult", pro: true },
-          { path: "/summary", label: "Check Vitals", pro: true },
           { path: "/userprofile", label: "User Settings" },
         ].map(({ path, label, pro }) => {
           const isActive = location.pathname === path;

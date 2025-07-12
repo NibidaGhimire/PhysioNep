@@ -4,7 +4,7 @@ import Exercises from "../../components/Exercises";
 import Progress from "../../components/Progress";
 import UserProfile from "../../components/UserProfile";
 import Consult from "../../components/Consult";
-import SummaryGenerator from "../../components/Summary";
+import CheckVitals from "../../components/CheckVitals";
 
 const Home = () => {
   return (
@@ -17,7 +17,7 @@ const Home = () => {
           <Route path="/" element={<Exercises />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/consult" element={<Consult />} />
-          <Route path="/summary" element={<SummaryGenerator />} />
+          <Route path="/checkvitals" element={<CheckVitals />} />
           <Route path="/userprofile" element={<UserProfile />} />
         </Routes>
       </div>
